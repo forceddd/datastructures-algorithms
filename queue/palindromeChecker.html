@@ -1,0 +1,46 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-26 21:19:50
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-26 21:33:24
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./deque.js"></script>
+    <script>
+        function palindromeChecker(str) {
+            //检验str是不是合法字符串
+            if (typeof str !== 'string' || str === '') return false;
+            const deque = new Deque(),
+                lowerStr = str.toLocaleLowerCase().split(' ').join('');
+            let isPalindrome = true,
+                frontChar, backChar;
+            deque.addBack(...lowerStr.split(''));
+            while (deque.size() > 1 && isPalindrome) {
+                frontChar = deque.removeFront();
+                backChar = deque.removeBack();
+                if (frontChar !== backChar) isPalindrome = false;
+            }
+            return isPalindrome
+        }
+        console.log(palindromeChecker(''));
+        console.log(palindromeChecker('a'));
+        console.log(palindromeChecker('aa'));
+        console.log(palindromeChecker('ab a'));
+        console.log(palindromeChecker('ab ca'));
+        console.log(palindromeChecker('Step on no pets'));
+
+
+    </script>
+</body>
+
+</html>

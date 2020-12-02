@@ -1,0 +1,39 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-26 20:34:21
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-26 20:49:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./deque.js"></script>
+    <script>
+        const d = new Deque();
+        const e = new Deque();
+
+        console.log(d.isEmpty());
+        d.addBack('a', 'b', 'c', 'd', 'e');
+        console.log(d, d.size(), d.peekFront(), d.peekBack(), d.toString());
+        d.addFront(0, 1, 2);
+        console.log(d);
+        e.addFront(0, 1, 2);
+        console.log(e);
+        console.log(e.removeBack(), e);
+        console.log(d.removeFront(), d);
+        d.removeFront()
+        console.log(d);
+        d.addFront('A');
+        console.log(d);
+    </script>
+</body>
+
+</html>

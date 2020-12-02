@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "name": "datastructure-algorithms",
+  "version": "1.0.0",
+  "description": "数据结构与算法学习",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "forceddd",
+  "license": "ISC",
+  "dependencies": {}
+}

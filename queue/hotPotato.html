@@ -1,0 +1,40 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-26 20:55:10
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-26 21:14:35
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./queue.js"></script>
+    <script>
+        function hotPotato(members, num) {
+            const queue = new Queue(),
+                eliminatedMembers = [];
+            queue.enqueue(...members);
+            console.log(queue);
+            while (queue.size() > 1) {
+                for (let i = 0; i < num; i++) {
+                    queue.enqueue(queue.dequeue());
+                }
+                eliminatedMembers.push(queue.dequeue());
+            }
+            return {
+                winner: queue.dequeue(),
+                eliminatedMembers
+            }
+        }
+        console.log(hotPotato([1, 2, 3, 4, 5], 7));
+    </script>
+</body>
+
+</html>

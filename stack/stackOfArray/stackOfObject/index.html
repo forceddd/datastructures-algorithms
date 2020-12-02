@@ -1,0 +1,34 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-25 19:50:32
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-25 20:20:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./index.js"></script>
+    <script>
+        const stack = new Stack();
+        console.log(stack.isEmpty());
+        stack.push('a', 'b', 'c', 'd');
+        console.log(stack.toString());
+        console.log(stack, stack.size(), stack.peek());
+        stack.pop();
+        stack.pop();
+        console.log(stack.toString());
+
+        console.log(stack, stack.size(), stack.peek());
+
+    </script>
+</body>
+
+</html>

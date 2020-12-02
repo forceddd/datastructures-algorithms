@@ -1,0 +1,29 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-26 19:50:54
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-26 19:54:14
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./queue.js"></script>
+    <script>
+        const q = new Queue();
+        console.log(q.isEmpty());
+        q.push('j', 'k', 'm');
+        console.log(q, q.size(), q.peek());
+        console.log(q.dequeue());
+        console.log(q.peek(), q.toString());
+    </script>
+</body>
+
+</html>

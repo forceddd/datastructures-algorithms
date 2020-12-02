@@ -1,0 +1,41 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-25 20:34:43
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-25 20:48:59
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../stackOfObject/index.js"></script>
+    <script>
+
+        function decimal2Binary(decNumber) {
+            let rem,
+                binaryStr = '';
+            const remStack = new Stack();
+            while (decNumber > 0) {
+                rem = decNumber % 2;
+                decNumber = Math.floor(decNumber / 2);
+                remStack.push(rem);
+
+            }
+            while (!remStack.isEmpty()) {
+                binaryStr += remStack.pop().toString();
+
+            }
+            return binaryStr;
+        }
+        console.log(decimal2Binary(10));
+    </script>
+</body>
+
+</html>

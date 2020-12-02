@@ -1,0 +1,39 @@
+<!--
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-11-25 20:48:49
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-11-25 20:55:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../stackOfObject/index.js"></script>
+    <script>
+        function decimal2Binary(decNumber, base) {
+            let rem,
+                binaryStr = '';
+            const dict = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const remStack = new Stack();
+            if (base < 2 || base > 36) return '';
+            while (decNumber > 0) {
+                rem = Math.floor(decNumber % base);
+                decNumber = Math.floor(decNumber / base);
+                remStack.push(rem);
+            }
+            while (!remStack.isEmpty()) {
+                binaryStr += dict[remStack.pop()]
+            }
+            return binaryStr;
+        }
+    </script>
+</body>
+
+</html>

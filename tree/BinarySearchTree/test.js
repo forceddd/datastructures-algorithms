@@ -1,0 +1,18 @@
+import BinarySearchTree from './binarySearchTree.js'
+// console.log('hello')
+const tree = new BinarySearchTree();
+tree.insert(6)
+tree.insert(3)
+tree.insert(2)
+tree.insert(7)
+tree.insert(8)
+tree.insert(4)
+// console.log(tree.search(1))
+// console.log(tree.search(2))
+// console.log(tree.search(3))
+// console.log(tree.search(4))
+// console.log(tree)
+// tree.inOrderTraverse(console.log)
+console.log(tree.remove(90))
+// tree.inOrderTraverse(console.log)
+// console.log(tree.root)

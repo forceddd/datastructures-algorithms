@@ -27,3 +27,5 @@ export const defaultToString = item => {
         return item + typeof item
     }
 }
+
+export const swap = (child, parent, heap) => [heap[parent], heap[child]] = [heap[child], heap[parent]];

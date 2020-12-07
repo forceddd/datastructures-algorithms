@@ -1,4 +1,4 @@
-import { defaultCompare, Compare, swap } from '../LinkedList/util.js';
+import { defaultCompare, Compare, swap } from '../util.js';
 
 //最小堆类
 export class MinHeap {

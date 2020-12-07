@@ -106,7 +106,7 @@ export default class BinarySearchTree {
     remove(key) {
         // this.root = this.removeNode(this.root, key);
         //返回值为this.root
-        return this.removeNode(this.root, key);
+        this.root = this.removeNode(this.root, key);
     }
     //最终返回传入node节点
     removeNode(node, key) {

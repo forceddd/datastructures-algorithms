@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-06 17:37:43
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-06 18:28:59
+ * @LastEditTime: 2020-12-07 19:43:07
  */
 import BinarySearchTree from '../BinarySearchTree/binarySearchTree.js';
 import { defaultCompare, Compare } from '../../LinkedList/util.js';
@@ -104,6 +104,7 @@ export default class RedBlackTree extends BinarySearchTree {
                     //改变引用 
                     node = parent;
                 }
+
 
             } else {
                 //情形B 父节点是右侧子节点

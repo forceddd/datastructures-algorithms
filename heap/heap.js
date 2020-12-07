@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-12-07 19:49:04
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-12-07 20:57:29
+ */
 import { defaultCompare, Compare, swap } from '../util.js';
 
 //最小堆类
@@ -44,8 +51,42 @@ export class MinHeap {
     isEmpty() {
         return this.size() === 0;
     }
-    findMin() {
+    getRoot() {
         return this.isEmpty() ? undefined : this.heap[0];
     }
-
+    //移除堆中的root
+    extract() {
+        if (this.isEmpty()) return undefined;
+        const length = this.size();
+        if (length === 1) return this.heap.shift();
+        const remove = this.heap[0];
+        //将最后一个元素 放在头部 然后重新排列堆
+        this.heap[0] = this.heap.pop();
+        this.shiftDown(0);
+        return remove;
+    }
+    shiftDown(index) {
+        let element = index;
+        const left = this.getLeftChildIndex(element),
+            right = this.getRightChildIndex(element),
+            length = this.size();
+        if (left < length && this.compare(this.heap[element], this.heap[left]) === Compare.BIGGER_THAN) {
+            element = left;
+        }
+        if (right < length && this.compare(this.heap[element], this.heap[right]) === Compare.BIGGER_THAN) {
+            element = right;
+        }
+        //从左孩子 右孩子中找出较小的 互换位置
+        if (index !== element) {
+            swap(index, element, this.heap);
+            this.shiftDown(element)
+        }
+    }
+}
+//将比较函数改变 最大堆可以继承最小堆的所有方法
+const reverseCompare = (a, b) => defaultCompare(b, a);
+export class MaxHeap extends MinHeap {
+    constructor(compare = reverseCompare) {
+        super(compare)
+    }
 }

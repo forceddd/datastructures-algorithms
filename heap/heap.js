@@ -90,3 +90,48 @@ export class MaxHeap extends MinHeap {
         super(compare)
     }
 }
+
+//堆排序算法 利用堆的逻辑 进行排序 此处选择的是最大堆
+//没有直接使用堆 所以要另外构建函数
+//下移函数
+const shiftDown = (index, array, heapSize, compare = defaultCompare) => {
+    let element = index;
+    const left = 2 * index + 1,
+        right = 2 * index + 2;
+    console.log(index)
+    if (left < heapSize && compare(array[element], array[left]) === Compare.LESS_THAN) {
+        element = left;
+    }
+    if (right < heapSize && compare(array[element], array[right]) === Compare.LESS_THAN) {
+        element = right;
+    }
+    if (index !== element) {
+        swap(element, index, array);
+        shiftDown(element, array, heapSize, compare);
+    }
+}
+//根据传入的数组 构建最大堆
+const buildMaxHeap = (array, compare = defaultCompare) => {
+    //根据堆的特性 从 i=Math.foor(length/2) 逐次向上排序
+    const length = array.length;
+    for (let i = Math.floor(length / 2); i >= 0; i -= 1) {
+        shiftDown(i, array, length, compare)
+    }
+    console.log(array)
+    return array
+}
+
+export const heapSort = (array, compare = defaultCompare) => {
+    let heapSize = array.length;
+    if (heapSize <= 1) return array;
+    //将数组转换成最大堆结构
+    buildMaxHeap(array, compare);
+    while (heapSize > 1) {
+        //将数组的最大值 放在数组末尾
+        swap(0, --heapSize, array);
+        //重新转换数组 使其符合最大堆结构 
+        //此时数组末尾已经是最大值 不在进行转换
+        shiftDown(0, array, heapSize, compare);
+    }
+    return array;
+}

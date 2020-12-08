@@ -98,7 +98,6 @@ const shiftDown = (index, array, heapSize, compare = defaultCompare) => {
     let element = index;
     const left = 2 * index + 1,
         right = 2 * index + 2;
-    console.log(index)
     if (left < heapSize && compare(array[element], array[left]) === Compare.LESS_THAN) {
         element = left;
     }
@@ -117,7 +116,6 @@ const buildMaxHeap = (array, compare = defaultCompare) => {
     for (let i = Math.floor(length / 2); i >= 0; i -= 1) {
         shiftDown(i, array, length, compare)
     }
-    console.log(array)
     return array
 }
 

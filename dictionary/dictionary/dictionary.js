@@ -5,7 +5,7 @@
  * @LastEditors: forceddd
  * @LastEditTime: 2020-11-29 16:42:19
  */
-import { defaultToString } from '../../LinkedList/util.js'
+import { defaultToString } from '../../util.js'
 //该类用于保存原始的key 和value 
 class ValuePair {
     constructor(key, value) {

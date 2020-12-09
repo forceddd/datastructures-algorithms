@@ -5,7 +5,7 @@
  * @LastEditors: forceddd
  * @LastEditTime: 2020-11-26 21:14:01
  */
-class Queue {
+export default class Queue {
     #count = 0;
     #lowestCount = 0;
     #items = {};

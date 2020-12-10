@@ -117,3 +117,21 @@ export const BFS = (graph, startVertex) => {
         predecessor
     }
 }
+//深度优先遍历 
+const depthFirstSearchVisit = (vertex, color, adjList, graph, cb) => {
+    color[vertex] = Colors.GRAY;
+    cb && cb(vertex, adjList, graph);
+    const neighbors = adjList.get(vertex);
+    neighbors.forEach(v => {
+        if (color[v] === Colors.WHITE) {
+            depthFirstSearchVisit(v, color, adjList, graph, cb);//对每一个邻接点递归调用访问函数  利用函数执行栈实现深度遍历
+        }
+    })
+    color[vertex] = Colors.BLACK;
+}
+export const depthFirstSearch = (graph, cb) => {
+    const vertices = graph.getVertices(),
+        adjList = graph.getAdjList(),
+        color = initializeColor(vertices);
+    vertices.forEach(v => color[v] === Colors.WHITE && depthFirstSearchVisit(v, color, adjList, graph, cb))
+}

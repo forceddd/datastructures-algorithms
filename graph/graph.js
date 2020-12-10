@@ -135,3 +135,39 @@ export const depthFirstSearch = (graph, cb) => {
         color = initializeColor(vertices);
     vertices.forEach(v => color[v] === Colors.WHITE && depthFirstSearchVisit(v, color, adjList, graph, cb))
 }
+const DFSVisit = (v, color, d, f, p, time, adjList) => {
+    console.log(v)
+    color[v] = Colors.GRAY;
+    d[v] = ++time.count;//发现时间
+    const neighbors = adjList.get(v);
+    neighbors.forEach(n => {
+        if (color[n] === Colors.WHITE) {
+            p[n] = v;
+            DFSVisit(n, color, d, f, p, time, adjList);
+        }
+    })
+
+    color[v] = Colors.BLACK;
+    f[v] = ++time.count;//完全探索时间
+}
+export const DFS = graph => {
+    const vertices = graph.getVertices(),
+        adjList = graph.getAdjList(),
+        color = initializeColor(vertices),
+        discoveried = {},
+        finished = {},
+        predecessor = {},
+        time = { count: 0 };
+    //初始化发现时间 完全探索时间和前置点
+    vertices.forEach(v => {
+        discoveried[v] = 0;
+        finished[v] = 0;
+        predecessor[v] = null;
+    })
+    vertices.forEach(v => color[v] === Colors.WHITE && DFSVisit(v, color, discoveried, finished, predecessor, time, adjList));
+    return {
+        discoveried,
+        finished,
+        predecessor
+    }
+}

@@ -82,3 +82,38 @@ export const breadthFirstSearch = (graph, startVertex, cb) => {
         cb && cb(v, neighbors, graph);
     }
 }
+//广度优先查找最短路径
+export const BFS = (graph, startVertex) => {
+    const vertices = graph.getVertices();
+    if (!vertices.includes(startVertex)) return undefined;
+    const adjList = graph.getAdjList(),
+        queue = new Queue(),
+        color = initializeColor(vertices),
+        distance = {},//存储路径长短
+        predecessor = {};//存储前置点
+    //初始化 distance predecessor
+    vertices.forEach(v => {
+        distance[v] = 0;
+        predecessor[v] = null;
+    })
+    queue.enqueue(startVertex);
+    color[startVertex] = Colors.GRAY;
+    while (!queue.isEmpty()) {
+        const vertex = queue.dequeue(),
+            neighbors = adjList.get(vertex);
+        neighbors.forEach(v => {
+            if (color[v] === Colors.WHITE) {
+                queue.enqueue(v);
+                color[v] = Colors.GRAY;
+                distance[v] = distance[vertex] + 1;
+                predecessor[v] = vertex;
+            }
+        })
+        color[vertex] = Colors.BLACK;
+
+    }
+    return {
+        distance,
+        predecessor
+    }
+}

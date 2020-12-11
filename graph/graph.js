@@ -136,7 +136,6 @@ export const depthFirstSearch = (graph, cb) => {
     vertices.forEach(v => color[v] === Colors.WHITE && depthFirstSearchVisit(v, color, adjList, graph, cb))
 }
 const DFSVisit = (v, color, d, f, p, time, adjList) => {
-    console.log(v)
     color[v] = Colors.GRAY;
     d[v] = ++time.count;//发现时间
     const neighbors = adjList.get(v);
@@ -170,4 +169,41 @@ export const DFS = graph => {
         finished,
         predecessor
     }
+}
+// dijkstra 算法
+const INF = Number.MAX_SAFE_INTEGER;
+//搜索distance数组中的最小值
+const minDistance = (distance, visited) => {
+    let min = INF,
+        minIndex = 0;
+    distance.forEach((d, vertex) => {
+        if (!visited[vertex] && d < min) {
+            min = d;
+            minIndex = vertex;
+        }
+    })
+    return minIndex;
+}
+export const dijkstra = (graph, startVertex) => {
+    const distance = [],
+        visited = [];
+    graph.forEach((neighbors, vertex) => {
+        distance[vertex] = INF;
+        visited[vertex] = false;
+    });
+    //初始点距离设为0 其他点都是INF
+    distance[startVertex] = 0;
+    for (let i = 0; i < graph.length - 1; i++) {
+        const v = minDistance(distance, visited);
+        console.log('v:', v);
+
+        //设置已经访问
+        visited[v] = true;
+        graph.forEach((ns, vertex) => {
+            if (!visited[vertex] && graph[v][vertex] !== 0 && distance[v] != INF && distance[v] + graph[v][vertex] < distance[vertex]) {
+                distance[vertex] = distance[v] + graph[v][vertex]
+            }
+        })
+    }
+    return distance;
 }

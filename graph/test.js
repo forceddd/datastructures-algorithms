@@ -1,4 +1,4 @@
-import Graph, { breadthFirstSearch, BFS, depthFirstSearch, DFS } from './graph.js';
+import Graph, { breadthFirstSearch, BFS, depthFirstSearch, DFS, dijkstra } from './graph.js';
 import Queue from '../queue/queue.js';
 
 const graph = new Graph(true);
@@ -17,7 +17,7 @@ graph.addEdge('F', 'E')
 // breadthFirstSearch(graph, 'C', v => console.log(v))
 // // console.log(BFS(graph, 'A'))
 // depthFirstSearch(graph, v => console.log(v))
-console.log(graph.toString())
+// console.log(graph.toString())
 const { finished } = DFS(graph);
 let s = '';
 vertices.forEach(v => {
@@ -32,5 +32,14 @@ vertices.forEach(v => {
     s += ' - ' + maxName;
     delete finished[maxName]
 })
-console.log(s)
+// console.log(s)
+const g = [
+    [0, 2, 4, 0, 0, 0],
+    [0, 0, 2, 4, 2, 0],
+    [0, 0, 0, 0, 3, 0],
+    [0, 0, 0, 0, 0, 2],
+    [0, 0, 0, 3, 0, 2],
+    [0, 0, 0, 0, 0, 0]
+]
+console.log(dijkstra(g, 5))
 

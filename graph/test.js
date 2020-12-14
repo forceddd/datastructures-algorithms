@@ -1,4 +1,4 @@
-import Graph, { breadthFirstSearch, BFS, depthFirstSearch, DFS, dijkstra } from './graph.js';
+import Graph, { breadthFirstSearch, BFS, depthFirstSearch, DFS, dijkstra, floydwarshell } from './graph.js';
 import Queue from '../queue/queue.js';
 
 const graph = new Graph(true);
@@ -42,4 +42,5 @@ const g = [
     [0, 0, 0, 0, 0, 0]
 ]
 console.log(dijkstra(g, 5))
+console.log(floydwarshell(g))
 

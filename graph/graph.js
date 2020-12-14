@@ -195,15 +195,39 @@ export const dijkstra = (graph, startVertex) => {
     distance[startVertex] = 0;
     for (let i = 0; i < graph.length - 1; i++) {
         const v = minDistance(distance, visited);
-        console.log('v:', v);
-
         //设置已经访问
         visited[v] = true;
-        graph.forEach((ns, vertex) => {
+        graph.forEach((neighbors, vertex) => {
             if (!visited[vertex] && graph[v][vertex] !== 0 && distance[v] != INF && distance[v] + graph[v][vertex] < distance[vertex]) {
                 distance[vertex] = distance[v] + graph[v][vertex]
             }
         })
     }
     return distance;
+}
+//弗洛伊德算法
+export const floydwarshell = graph => {
+    const distance = [],
+        length = graph.length;
+    //初始化distance数组
+    for (let i = 0; i < length; i++) {
+        distance[i] = [];
+        for (let j = 0; j < length; j++) {
+            //将两点之间的distance初始化为二者边长 同一个点为0 不相通为INF
+            i === j ? distance[i][j] = 0
+                : graph[i][j] === 0 ? distance[i][j] = INF
+                    : distance[i][j] = graph[i][j]
+        }
+
+    }
+    //将每一个点作为中间点k 如果i->k->j 比i->j更小 就更新distance
+    for (let k = 0; k < length; k++) {
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                // if (distance[i][k] + distance[k][j] < distance[i][j]) distance[i][j] = distance[i][k] + distance[k][j]
+                distance[i][k] + distance[k][j] < distance[i][j] && (distance[i][j] = distance[i][k] + distance[k][j])
+            }
+        }
+    }
+    return distance
 }

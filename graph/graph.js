@@ -208,7 +208,7 @@ export const dijkstra = (graph, startVertex) => {
 //弗洛伊德算法
 export const floydwarshell = graph => {
     const distance = [],
-        length = graph.length;
+        { length } = graph;
     //初始化distance数组
     for (let i = 0; i < length; i++) {
         distance[i] = [];
@@ -230,4 +230,29 @@ export const floydwarshell = graph => {
         }
     }
     return distance
+}
+
+//最小生成树 MST 普利姆算法
+export const prim = graph => {
+    const { length } = graph,
+        parent = [],//存储前一个节点
+        keys = new Array(length).fill(INF),//存储路径最小权值
+        visited = new Array(length).fill(false);
+    keys[0] = 0;
+    parent[0] = -1;
+    console.log(visited)
+    for (let i = 0; i < length; i++) {
+        const u = minDistance(keys, visited);
+        visited[u] = true;//设置已经访问
+        graph[u].forEach((key, i) => {
+            if (key && keys[u] !== INF && !visited[i] && key < keys[i]) {
+                keys[i] = key;
+                parent[i] = u;
+            }
+        })
+    }
+    return {
+        parent, keys
+    }
+
 }

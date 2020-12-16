@@ -28,4 +28,4 @@ export const defaultToString = item => {
     }
 }
 
-export const swap = (child, parent, heap) => [heap[parent], heap[child]] = [heap[child], heap[parent]];
+export const swap = (i, j, arr) => [arr[i], arr[j]] = [arr[j], arr[i]];

@@ -240,19 +240,64 @@ export const prim = graph => {
         visited = new Array(length).fill(false);
     keys[0] = 0;
     parent[0] = -1;
-    console.log(visited)
-    for (let i = 0; i < length; i++) {
+    for (let ne = 0; ne < length - 1; ne++) {
+        //找出距离上一个父节点，最近的节点u,并从u节点向下查找其他节点
         const u = minDistance(keys, visited);
         visited[u] = true;//设置已经访问
-        graph[u].forEach((key, i) => {
-            if (key && keys[u] !== INF && !visited[i] && key < keys[i]) {
-                keys[i] = key;
-                parent[i] = u;
+        //找出顶点u到其他顶点v最近的边
+        graph[u].forEach((key, v) => {
+            if (key && keys[u] !== INF && !visited[v] && key < keys[v]) {
+                keys[v] = key;
+                //链接顶点u和v 形成一条边
+                parent[v] = u;
             }
         })
     }
     return {
         parent, keys
     }
-
+}
+//kruskal 算法
+const initializeCost = arr => JSON.parse(JSON.stringify(arr));
+//找到该顶点的最顶层父节点
+const find = (i, parent) => {
+    while (parent[i]) {
+        i = parent[i];
+    }
+    return i;
+}
+//判断两个顶点的父节点是否相同 如果不相同就可以建立连接
+const union = (i, j, a, b, parent) => {
+    if (i !== j) {
+        parent[b] = a;
+        return true;
+    }
+    return false;
+}
+export const kruskal = graph => {
+    const { length } = graph,
+        parent = [],
+        cost = initializeCost(graph);
+    let ne = 0, a, b, u, v;
+    //ne 已经建立的边的数量
+    while (ne <= length - 1) {
+        //两个循环找出最小权值的边
+        for (let i = 0, min = INF; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                if (cost[i][j] && cost[i][j] < min) {
+                    min = cost[i][j];
+                    a = u = i;
+                    b = v = j;
+                }
+            }
+        }
+        //得到最小权值边的两个顶点各自的父节点
+        u = find(u, parent);
+        v = find(v, parent);
+        //比较父节点是否相同，如不相同，建立链接 发现了一条边
+        union(u, v, a, b, parent) && ne++;
+        //将该边权值设为0 避免重复访问
+        cost[a][b] = 0;
+    }
+    return parent;
 }

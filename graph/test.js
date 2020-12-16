@@ -1,4 +1,4 @@
-import Graph, { breadthFirstSearch, BFS, depthFirstSearch, DFS, dijkstra, floydwarshell, prim } from './graph.js';
+import Graph, { breadthFirstSearch, BFS, depthFirstSearch, DFS, dijkstra, floydwarshell, prim, kruskal } from './graph.js';
 import Queue from '../queue/queue.js';
 
 const graph = new Graph(true);
@@ -44,3 +44,4 @@ const g = [
 // console.log(dijkstra(g, 5))
 // console.log(floydwarshell(g))
 console.log(prim(g))
+console.log(kruskal(g))

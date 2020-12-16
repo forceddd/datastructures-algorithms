@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-16 20:47:15
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-16 21:37:36
+ * @LastEditTime: 2020-12-16 21:38:57
  */
 import { swap, defaultCompare, Compare } from '../util.js';
 
@@ -59,7 +59,7 @@ export const insertionSort = (arr, compare = defaultCompare) => {
     return arr;
 }
 //归并排序 O(n *log(n))
-//归并排序合并函数
+//归并排序合并函数 将两个排好序的数组合并到一起
 export const merge = (left, right, compare) => {
     let i = 0,
         j = 0;//创建两个下标，用来依次比较left元素和right元素的大小

@@ -51,3 +51,56 @@ export const insertionSort = (arr, compare = defaultCompare) => {
     }
     return arr;
 }
+
+//快速排序 O(n*log(n))
+export const quickSort2 = (arr, left = 0, right = arr.length - 1, compare = defaultCompare) => {
+    let pivotIndex = Math.floor((left + right) / 2);//作为比较标准的主元值
+    const pivot = arr[pivotIndex];
+    let i = left, j = right;//用于遍历数组的左右指针
+    //从左向右找出比piovt大的值
+    while (i < j && compare(arr[i], pivot) === Compare.LESS_THAN) {
+        i++;
+    }
+    if (i < j) {
+        arr[pivotIndex] = arr[left];
+        left++;
+    }
+
+
+}
+export const partition = (arr, left = 0, right = arr.length - 1, compare = defaultCompare) => {
+    let pivotIndex = Math.floor((left + right) / 2);
+    const pivot = arr[pivotIndex];
+    let i = left, j = right;
+    while (i <= j) {
+        //从左向右找不比主元小的值,如果找到就暂停
+        while (compare(arr[i], pivot) === Compare.LESS_THAN) {
+            i++;
+        }
+        //接着 从右向左找不比主元大的值 如果找到 就暂停
+        while (compare(arr[j], pivot) === Compare.BIGGER_THAN) {
+            j--;
+        }
+        //比较左指针和右指针大小 交换大值和小值位置，这样左边就变成小值，右边就变成大值
+        //最终在下标i左侧的元素都是小值 i及i右侧的元素都是大值
+        if (i <= j) {
+            swap(i, j, arr);
+            i++;
+            j--;
+        }
+    }
+    //将i作为分界点 i左边的数都是小于i右边的数的
+    return i;
+}
+const quick = (left = 0, right = arr.length - 1, arr, compare = defaultCompare) => {
+    //只有一个元素时 一定是有序的
+    if (arr.length > 1) {
+        let pivotIndex = partition(arr, left, right, compare);
+        //当left不小于pivotIndex-1时 说明左侧起点和临界点之间没有元素了 不需要再排序
+        left < pivotIndex - 1 && quick(left, pivotIndex - 1, arr, compare);
+        //同理 对较大数数组arr[pivotIndex]--arr[right]排序
+        pivotIndex < right && quick(pivotIndex, right, arr, compare)
+    }
+    return arr;
+}
+export const quickSort = (arr, compare = defaultCompare) => quick(0, arr.length - 1, arr, compare);

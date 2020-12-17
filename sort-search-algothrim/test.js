@@ -1,12 +1,17 @@
-import { bubbleSort, insertionSort, partition, quickSort, selectionSort } from "./sort.js";
+/*
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-12-16 20:47:15
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-12-16 21:31:18
+ */
+import { defaultCompare } from "../util.js";
+import { bubbleSort, insertionSort, merge, mergeSort, selectionSort } from "./sort.js";
 
-// const arr = [1, 4, 7, 3, 8, 90, 56];
-const arr = [3, 5, 1, 6, 4, 7, 2]
+const arr = [5, 3, 4, 2, 1, 0];
 // bubbleSort(arr)
 // selectionSort(arr)
 // insertionSort(arr)
-quickSort(arr)
-const a2 = [3, 1]
-// let i = partition(a2)
-// console.log(a2, i)
-console.log(arr)
+// console.log(mergeSort(arr));
+// console.log(arr)
+console.log('final:', merge([1, 8, 10], [2, 9], defaultCompare));

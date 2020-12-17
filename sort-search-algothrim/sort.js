@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-12-16 20:47:15
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-12-16 21:38:57
+ */
 import { swap, defaultCompare, Compare } from '../util.js';
 
 //冒泡排序 bubbleSort O(n**2)
@@ -53,21 +60,7 @@ export const insertionSort = (arr, compare = defaultCompare) => {
 }
 
 //快速排序 O(n*log(n))
-export const quickSort2 = (arr, left = 0, right = arr.length - 1, compare = defaultCompare) => {
-    let pivotIndex = Math.floor((left + right) / 2);//作为比较标准的主元值
-    const pivot = arr[pivotIndex];
-    let i = left, j = right;//用于遍历数组的左右指针
-    //从左向右找出比piovt大的值
-    while (i < j && compare(arr[i], pivot) === Compare.LESS_THAN) {
-        i++;
-    }
-    if (i < j) {
-        arr[pivotIndex] = arr[left];
-        left++;
-    }
 
-
-}
 export const partition = (arr, left = 0, right = arr.length - 1, compare = defaultCompare) => {
     let pivotIndex = Math.floor((left + right) / 2);
     const pivot = arr[pivotIndex];
@@ -104,3 +97,28 @@ const quick = (left = 0, right = arr.length - 1, arr, compare = defaultCompare) 
     return arr;
 }
 export const quickSort = (arr, compare = defaultCompare) => quick(0, arr.length - 1, arr, compare);
+//归并排序 O(n *log(n))
+//归并排序合并函数 将两个排好序的数组合并到一起
+export const merge = (left, right, compare) => {
+    let i = 0,
+        j = 0;//创建两个下标，用来依次比较left元素和right元素的大小
+    const result = [];//储存结果的数组
+    //比较两个数组，按照大小逐次添加到结果数组中，最终left或者right会有一方全部被添加到result
+    while (i < left.length && j < right.length) {
+        result.push(compare(left[i], right[j]) === Compare.LESS_THAN ? left[i++] : right[j++]);
+    }
+    //把另一方剩余的元素添加到结果数组中
+    return result.concat(i < left.length ? left.slice(i) : right.slice(j));
+}
+export const mergeSort = (arr, compare = defaultCompare) => {
+    //将数组切成单个元素数组
+    const { length } = arr;
+    if (length > 1) {
+        const middle = Math.floor(length / 2);
+        const left = mergeSort(arr.slice(0, middle), compare)
+        const right = mergeSort(arr.slice(middle), compare);
+        //将拆分后的数组排序合并
+        arr = merge(left, right, compare)
+    }
+    return arr
+}

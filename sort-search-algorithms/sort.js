@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-16 20:47:15
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-16 21:38:57
+ * @LastEditTime: 2020-12-18 23:40:30
  */
 import { swap, defaultCompare, Compare } from '../util.js';
 
@@ -11,7 +11,7 @@ import { swap, defaultCompare, Compare } from '../util.js';
 export const bubbleSort = (arr, compare = defaultCompare) => {
     const { length } = arr;
     //外循环控制迭代次数，迭代次数比数组长度少一次，因为在迭代了leng-2次之后，arr[0]已经在之前和其他项都比较过了，不需要再与其他项比较
-    for (let i = 0; i < length-1; i++) {
+    for (let i = 0; i < length - 1; i++) {
         //内循环比较当前项和下一项的大小
         for (let j = 0; j < length - 1 - i; j++) {
             //如果当前项大于下一项，二者交换位置
@@ -29,7 +29,7 @@ export const selectionSort = (arr, compare = defaultCompare) => {
     for (let i = 0; i < length - 1; i++) {
         minIndex = i;//假设迭代起始位置为最小值
         //内循环用来找出本轮真正的最小值 从i处开始迭代 i之前的已经排好序
-        for (let j = i+1; j < length; j++) {
+        for (let j = i + 1; j < length; j++) {
             if (compare(arr[minIndex], arr[j]) === Compare.BIGGER_THAN) minIndex = j;
         }
         //比较之后 如果找到了更小的值，将二者互换位置
@@ -64,7 +64,7 @@ export const partition = (arr, left = 0, right = arr.length - 1, compare = defau
     let pivotIndex = Math.floor((left + right) / 2);
     const pivot = arr[pivotIndex];
     let i = left, j = right;
-    while (i <= j) {
+    while (i < j) {
         //从左向右找不比主元小的值,如果找到就暂停
         while (compare(arr[i], pivot) === Compare.LESS_THAN) {
             i++;
@@ -75,6 +75,7 @@ export const partition = (arr, left = 0, right = arr.length - 1, compare = defau
         }
         //比较左指针和右指针大小 交换大值和小值位置，这样左边就变成小值，右边就变成大值
         //最终在下标i左侧的元素都是小值 i及i右侧的元素都是大值
+        //i == j 时必须继续 i++ j-- 可以不交换值
         if (i <= j) {
             swap(i, j, arr);
             i++;
@@ -151,62 +152,62 @@ export const countingSort = arr => {
 //桶排序/箱排序 分布式排序 最好情况O(n)
 //将数组分成较小的数组 然后对较小数组使用简单的排序方法 再将排序好之后的数组合并
 //创建桶
-const createBuckets=(arr,bucketSize)=>{
+const createBuckets = (arr, bucketSize) => {
     //根据数组的最大值和最小值来确定创建多少个桶  根据数组每项和最小值的差值 来确定应把该项放在哪个桶中
     //Math.floor((max-min)/bucketSize) 是最大值在桶中的下标 所以总长是该值+1
-    const min=Math.min(...arr),
-    max=Math.max(...arr),
-    bucketCount=Math.floor((max-min)/bucketSize)+1,
-    //buckets是一个二维数组，每一项是一个桶，桶中是划分来的数组元素
-    //初始化buckets 不能使用.fill([]) 这样是将同一个[] 给赋值 
-    buckets=new Array(bucketCount);
-    for(let i=0;i<bucketCount;i++) buckets[i]=[];
+    const min = Math.min(...arr),
+        max = Math.max(...arr),
+        bucketCount = Math.floor((max - min) / bucketSize) + 1,
+        //buckets是一个二维数组，每一项是一个桶，桶中是划分来的数组元素
+        //初始化buckets 不能使用.fill([]) 这样是将同一个[] 给赋值 
+        buckets = new Array(bucketCount);
+    for (let i = 0; i < bucketCount; i++) buckets[i] = [];
     //计算每一项应该在buckets中的下标
-    arr.forEach(item=>{
-        const bucketIndex=Math.floor((item-min)/bucketSize);
+    arr.forEach(item => {
+        const bucketIndex = Math.floor((item - min) / bucketSize);
         buckets[bucketIndex].push(item);
     })
     return buckets;
 }
 //对桶数组中的每个桶进行插入排序，然后将排序后的所有桶连接起来
-const sortBuckets=buckets=>{
-    const sortedArray=[];
-    buckets.forEach(bucket=>{
+const sortBuckets = buckets => {
+    const sortedArray = [];
+    buckets.forEach(bucket => {
         insertionSort(bucket);
         sortedArray.push(...bucket)
     })
     return sortedArray
 }
 
-export const bucketSort=(arr,bucketSize=5)=>{
-    if(arr.length<2) return arr;
-    const buckets=createBuckets(arr,bucketSize);
+export const bucketSort = (arr, bucketSize = 5) => {
+    if (arr.length < 2) return arr;
+    const buckets = createBuckets(arr, bucketSize);
     return sortBuckets(buckets);
 }
 
 //基数排序 分布式排序
-const sortForRadix=(arr,sidnificantDifit,radix)=>{
-    const sortedArray=[];
+const sortForRadix = (arr, sidnificantDifit, radix) => {
+    const sortedArray = [];
     //根据传入的禁制初始化桶
-    const buckets=new Array(radix);
-    for(let i=0;i<radix;i++){
-        buckets[i]=[];
+    const buckets = new Array(radix);
+    for (let i = 0; i < radix; i++) {
+        buckets[i] = [];
     }
-    arr.forEach(item=>{
-        let bucketIndex=Math.floor(item/sidnificantDifit)%10;
+    arr.forEach(item => {
+        let bucketIndex = Math.floor(item / sidnificantDifit) % 10;
         buckets[bucketIndex].push(item);
     })
-    buckets.forEach(bucket=>void bucket.length&&sortedArray.push(...bucket))
+    buckets.forEach(bucket => void bucket.length && sortedArray.push(...bucket))
     return sortedArray
 }
-export const radixSort=(arr,radix=10)=>{
-    let significantDigit=1;//有效位 个位
-    const max=Math.max(...arr);
-    let aux=JSON.parse(JSON.stringify(arr));//用于存储排序后的数组 给原数组赋值
-    while(max/significantDigit>=1){
-        aux=sortForRadix(aux,significantDigit,radix);
-        significantDigit*=10;
+export const radixSort = (arr, radix = 10) => {
+    let significantDigit = 1;//有效位 个位
+    const max = Math.max(...arr);
+    let aux = JSON.parse(JSON.stringify(arr));//用于存储排序后的数组 给原数组赋值
+    while (max / significantDigit >= 1) {
+        aux = sortForRadix(aux, significantDigit, radix);
+        significantDigit *= 10;
     }
-    aux.forEach((a,i)=>void (arr[i]=a))
+    aux.forEach((a, i) => void (arr[i] = a))
     return arr;
 }

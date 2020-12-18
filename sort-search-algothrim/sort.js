@@ -54,7 +54,6 @@ export const insertionSort = (arr, compare = defaultCompare) => {
         }
         //当j=0时说明到了数组第一位，再往前已经没有元素，直接插入即可；当前一项的值小于temp时，说明找到了合适位置
         arr[j] = temp;
-
     }
     return arr;
 }
@@ -123,7 +122,7 @@ export const mergeSort = (arr, compare = defaultCompare) => {
     return arr
 }
 
-//计数排序 整数排序算法 O(n+k) k是临时计数数组的大小
+//计数排序 整数排序算法 O(n+k) k是临时计数数组的大小  分布式排序算法
 export const countingSort = arr => {
     //如果数组为空 或者只有一个元素 不需要排序
     if (arr.length < 2) return arr;
@@ -146,5 +145,68 @@ export const countingSort = arr => {
             count--;
         }
     })
+    return arr;
+}
+
+//桶排序/箱排序 分布式排序 最好情况O(n)
+//将数组分成较小的数组 然后对较小数组使用简单的排序方法 再将排序好之后的数组合并
+//创建桶
+const createBuckets=(arr,bucketSize)=>{
+    //根据数组的最大值和最小值来确定创建多少个桶  根据数组每项和最小值的差值 来确定应把该项放在哪个桶中
+    //Math.floor((max-min)/bucketSize) 是最大值在桶中的下标 所以总长是该值+1
+    const min=Math.min(...arr),
+    max=Math.max(...arr),
+    bucketCount=Math.floor((max-min)/bucketSize)+1,
+    //buckets是一个二维数组，每一项是一个桶，桶中是划分来的数组元素
+    //初始化buckets 不能使用.fill([]) 这样是将同一个[] 给赋值 
+    buckets=new Array(bucketCount);
+    for(let i=0;i<bucketCount;i++) buckets[i]=[];
+    //计算每一项应该在buckets中的下标
+    arr.forEach(item=>{
+        const bucketIndex=Math.floor((item-min)/bucketSize);
+        buckets[bucketIndex].push(item);
+    })
+    return buckets;
+}
+//对桶数组中的每个桶进行插入排序，然后将排序后的所有桶连接起来
+const sortBuckets=buckets=>{
+    const sortedArray=[];
+    buckets.forEach(bucket=>{
+        insertionSort(bucket);
+        sortedArray.push(...bucket)
+    })
+    return sortedArray
+}
+
+export const bucketSort=(arr,bucketSize=5)=>{
+    if(arr.length<2) return arr;
+    const buckets=createBuckets(arr,bucketSize);
+    return sortBuckets(buckets);
+}
+
+//基数排序 分布式排序
+const sortForRadix=(arr,sidnificantDifit,radix)=>{
+    const sortedArray=[];
+    //根据传入的禁制初始化桶
+    const buckets=new Array(radix);
+    for(let i=0;i<radix;i++){
+        buckets[i]=[];
+    }
+    arr.forEach(item=>{
+        let bucketIndex=Math.floor(item/sidnificantDifit)%10;
+        buckets[bucketIndex].push(item);
+    })
+    buckets.forEach(bucket=>void bucket.length&&sortedArray.push(...bucket))
+    return sortedArray
+}
+export const radixSort=(arr,radix=10)=>{
+    let significantDigit=1;//有效位 个位
+    const max=Math.max(...arr);
+    let aux=JSON.parse(JSON.stringify(arr));//用于存储排序后的数组 给原数组赋值
+    while(max/significantDigit>=1){
+        aux=sortForRadix(aux,significantDigit,radix);
+        significantDigit*=10;
+    }
+    aux.forEach((a,i)=>void (arr[i]=a))
     return arr;
 }

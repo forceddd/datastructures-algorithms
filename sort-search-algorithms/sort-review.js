@@ -1,0 +1,56 @@
+import {swap,defaultCompare,Compare} from '../util.js';
+
+//1. bubbleSort O(n**2)
+export const bubbleSort=(arr,compare=defaultCompare)=>{
+    const {length}=arr;
+    for(let i=0;i<length-1;i++){
+        for(let j=0;j<length-1-i;j++){
+            compare(arr[j],arr[j+1])===Compare.BIGGER_THAN&&swap(j,j+1,arr);
+        }
+    }
+    return arr;
+}
+
+//2. insertionSort
+//假设第一项已经是有序的，从第二项开始，和前一项比较大小，确定应该插入的位置,直到找到合适位置或者到达数组起始点
+// export const insertionSort=(arr,compare=defaultCompare)=>{
+//     for(let i=1;i<arr.length;i++){
+//         let j=i;
+//         while(j>0&&compare(arr[j],arr[j-1])===Compare.LESS_THAN){
+//             swap(j,j-1,arr);
+//             j--;
+//         }
+//         count++;
+//     }
+//     return arr
+// }
+//没有必要每次交换 j 和 j-1 只需要再找到正确位置后 给j赋值  就可以了
+export const insertionSort=(arr,compare=defaultCompare)=>{
+    for(let i=1;i<arr.length;i++){
+        const temp=arr[i];//暂存当前要插入的值 在找到合适位置后插入
+        let j=i;
+        //因为在while只将arr[i]设为了arr[j-1],没有改变 j-1的值 所以要使用temp来比较，不能向上面一样直接 j 和j-1比较
+        while(j>0&&compare(temp,arr[j-1])===Compare.LESS_THAN){
+            arr[j]=arr[j-1];
+            j--;
+        }
+        //找到合适位置后 赋值一次就可以了
+        arr[j]=temp;
+    }
+}
+
+//3. selectionSort O(n**2)
+//先从第一位开始，选择出数组中的最小值，然后将最小值和第一位交换位置 ，接着从第二位开始查找最小值
+export const selectionSort=(arr,compare=defaultCompare)=>{
+    //和冒泡排序相同，外层循环控制迭代次数，当迭代i=length-2，j=length -1
+    const {length}=arr;
+    for(let i=0;i<length-1;i++){
+        let minIndex = i;
+        //内层循环j 从i+1处开始
+        for(let j=i+1;j<length;j++){
+            if(compare(arr[minIndex],arr[j])===Compare.BIGGER_THAN) minIndex=j;
+        }
+        i != minIndex && swap(i,minIndex,arr)
+    }
+    return arr;
+}

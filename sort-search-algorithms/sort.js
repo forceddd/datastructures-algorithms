@@ -10,8 +10,8 @@ import { swap, defaultCompare, Compare } from '../util.js';
 //冒泡排序 bubbleSort O(n**2)
 export const bubbleSort = (arr, compare = defaultCompare) => {
     const { length } = arr;
-    //外循环从数组第一位迭代到最后一位
-    for (let i = 0; i < length; i++) {
+    //外循环控制迭代次数，迭代次数比数组长度少一次，因为在迭代了leng-2次之后，arr[0]已经在之前和其他项都比较过了，不需要再与其他项比较
+    for (let i = 0; i < length-1; i++) {
         //内循环比较当前项和下一项的大小
         for (let j = 0; j < length - 1 - i; j++) {
             //如果当前项大于下一项，二者交换位置
@@ -29,7 +29,7 @@ export const selectionSort = (arr, compare = defaultCompare) => {
     for (let i = 0; i < length - 1; i++) {
         minIndex = i;//假设迭代起始位置为最小值
         //内循环用来找出本轮真正的最小值 从i处开始迭代 i之前的已经排好序
-        for (let j = i; j < length; j++) {
+        for (let j = i+1; j < length; j++) {
             if (compare(arr[minIndex], arr[j]) === Compare.BIGGER_THAN) minIndex = j;
         }
         //比较之后 如果找到了更小的值，将二者互换位置
@@ -43,7 +43,7 @@ export const insertionSort = (arr, compare = defaultCompare) => {
     let temp;//用于数组交换位置的中间值
     //外循环控制迭代 假设第一项已经有序，从第二项开始迭代
     for (let i = 1; i < length; i++) {
-        let j = i;
+        let j = i;//用j存当前的i值 因为之后需要循环可能改变下标
         temp = arr[j];//存储当前迭代项的值
         //将当前项 和前一项进行比较 看应该插入到左边还是右边
         while (j > 0 && compare(arr[j - 1], temp) === Compare.BIGGER_THAN) {

@@ -122,3 +122,29 @@ export const mergeSort = (arr, compare = defaultCompare) => {
     }
     return arr
 }
+
+//计数排序 整数排序算法 O(n+k) k是临时计数数组的大小
+export const countingSort = arr => {
+    //如果数组为空 或者只有一个元素 不需要排序
+    if (arr.length < 2) return arr;
+    //找出整数数组中的最大值，用于确认创建辅助数组的大小
+    const maxValue = Math.max(...arr),
+        //创建辅助数组 
+        counts = new Array(maxValue + 1);
+    //将arr 的value作为index，value出现的次数作为值 填充counts
+    arr.forEach(item => {
+        //如果之前该value没有出现过 就将次数初始为0
+        if (!counts[item]) counts[item] = 0;
+        counts[item]++;
+    });
+    //用于将counts数组转换为排序数组的辅助下标
+    let sortedIndex = 0
+    counts.forEach((count, value) => {
+        //当次数不为空时 将值按顺序插入数组中 如果count是undfined 不会执行回调函数
+        while (count > 0) {
+            arr[sortedIndex++] = value;
+            count--;
+        }
+    })
+    return arr;
+}

@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-18 21:18:08
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-18 23:42:36
+ * @LastEditTime: 2020-12-19 11:15:03
  */
 import { swap, defaultCompare, Compare } from '../util.js';
 
@@ -86,4 +86,28 @@ const quick = (left, right, arr, compare) => {
 }
 export const quickSort = (arr, compare = defaultCompare) => {
     return quick(0, arr.length - 1, arr, compare);
+}
+
+//mergeSort 归并排序
+//现在mergeSort中递归分割数组，直至只有一个元素，然后将left数组和right数组通过merge函数进行合并
+//将传入的两个排好序的数组 按顺序合并起来
+const merge = (left, right, compare) => {
+    // let i = j = 0; //j not defined
+    let i = 0, j = 0;
+    const mergeArray = [];
+    while (i < left.length && j < right.length) {
+        mergeArray.push(compare(left[i], right[j]) === Compare.LESS_THAN ? left[i++] : right[j++]);
+    }
+    return mergeArray.concat(i < left.length ? left.slice(i) : right.slice(j));
+}
+export const mergeSort = (arr, compare = defaultCompare) => {
+    if (arr.length > 1) {
+        const { length } = arr;
+        // if (length < 2) return arr;
+        const partitionIndex = Math.floor(length / 2);
+        const left = mergeSort(arr.slice(0, partitionIndex), compare),
+            right = mergeSort(arr.slice(partitionIndex), compare);
+        arr = merge(left, right, compare);
+    }
+    return arr
 }

@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-16 20:47:15
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-18 23:40:30
+ * @LastEditTime: 2020-12-19 11:13:07
  */
 import { swap, defaultCompare, Compare } from '../util.js';
 
@@ -77,7 +77,7 @@ export const partition = (arr, left = 0, right = arr.length - 1, compare = defau
         //最终在下标i左侧的元素都是小值 i及i右侧的元素都是大值
         //i == j 时必须继续 i++ j-- 可以不交换值
         if (i <= j) {
-            swap(i, j, arr);
+            i < j && swap(i, j, arr);
             i++;
             j--;
         }

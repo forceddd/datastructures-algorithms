@@ -3,9 +3,9 @@
  * @Author: forceddd
  * @Date: 2020-12-19 14:34:25
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-19 15:47:29
+ * @LastEditTime: 2020-12-19 16:14:01
  */
-import { defaultCompare, Compare, defaultEquals, defaultDiff } from '../util.js'
+import { defaultCompare, Compare, defaultEquals, defaultDiff, swap } from '../util.js'
 const DO_NOT_EXIST = -1;
 // 顺序搜索 线性搜索 最低效
 export const sequentialSearch = (arr, value, equals = defaultEquals) => {
@@ -48,3 +48,12 @@ export const interpolationSearch = (arr, value, compare = defaultCompare, diff =
     return DO_NOT_EXIST;
 }
 
+//随机算法 
+export const shuffle = arr => {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        console.log('i: ', i, 'random: ', randomIndex);
+        swap(i, randomIndex, arr);
+    }
+    return arr;
+}

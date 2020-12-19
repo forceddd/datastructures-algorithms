@@ -3,10 +3,10 @@
  * @Author: forceddd
  * @Date: 2020-12-16 20:47:15
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-19 15:46:03
+ * @LastEditTime: 2020-12-19 16:15:14
  */
 import { defaultCompare } from "../util.js";
-import { binarySearch, interpolationSearch } from "./search.js";
+import { binarySearch, interpolationSearch, shuffle } from "./search.js";
 import { bubbleSort, bucketSort, countingSort, insertionSort, mergeSort, quickSort, radixSort, selectionSort } from "./sort-review.js";
 // import { insertionSort, mergeSort } from "./sort.js";
 
@@ -29,5 +29,7 @@ console.log(arr);
 // console.log(a)
 // console.log(arr3)
 // console.log('final:', merge([1, 8, 10], [2, 9], defaultCompare));
-console.log('index:', interpolationSearch(arr, 5));
-console.log('b-index:', binarySearch(arr, 5));
+// console.log('index:', interpolationSearch(arr, 5));
+// console.log('b-index:', binarySearch(arr, 5));
+shuffle(arr)
+console.log(arr);

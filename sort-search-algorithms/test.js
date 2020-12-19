@@ -3,21 +3,21 @@
  * @Author: forceddd
  * @Date: 2020-12-16 20:47:15
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-19 11:14:14
+ * @LastEditTime: 2020-12-19 14:17:08
  */
 import { defaultCompare } from "../util.js";
-import { bubbleSort, insertionSort, mergeSort, quickSort, selectionSort } from "./sort-review.js";
+import { bubbleSort, bucketSort, countingSort, insertionSort, mergeSort, quickSort, radixSort, selectionSort } from "./sort-review.js";
 // import { insertionSort, mergeSort } from "./sort.js";
 
-const arr = [5, 4, 3, 2, 1];
+const arr = [5, 4, 3, 2, 1, 5, 4, 3, 3];
 // const arr2 = [5, 4, 3, 2, 6, 1, 7, 10, 9, 8];
 // const arr3 = [93, 43, 55, 4, 101]
 // bubbleSort(arr);
 // insertionSort(arr);
 // selectionSort(arr);
 // quickSort(arr2);
-mergeSort(arr);
-console.log(mergeSort(arr))
+// mergeSort(arr);
+console.log(radixSort(arr))
 // selectionSort(arr)
 // insertionSort(arr)
 // countingSort(arr)

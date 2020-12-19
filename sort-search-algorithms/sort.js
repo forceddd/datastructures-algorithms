@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-16 20:47:15
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-19 11:13:07
+ * @LastEditTime: 2020-12-19 14:20:16
  */
 import { swap, defaultCompare, Compare } from '../util.js';
 
@@ -173,7 +173,7 @@ const createBuckets = (arr, bucketSize) => {
 const sortBuckets = buckets => {
     const sortedArray = [];
     buckets.forEach(bucket => {
-        insertionSort(bucket);
+        bucket.length && insertionSort(bucket);
         sortedArray.push(...bucket)
     })
     return sortedArray
@@ -186,7 +186,7 @@ export const bucketSort = (arr, bucketSize = 5) => {
 }
 
 //基数排序 分布式排序
-const sortForRadix = (arr, sidnificantDifit, radix) => {
+const sortForRadix = (arr, significantDigit, radix) => {
     const sortedArray = [];
     //根据传入的禁制初始化桶
     const buckets = new Array(radix);
@@ -194,7 +194,7 @@ const sortForRadix = (arr, sidnificantDifit, radix) => {
         buckets[i] = [];
     }
     arr.forEach(item => {
-        let bucketIndex = Math.floor(item / sidnificantDifit) % 10;
+        let bucketIndex = Math.floor(item / significantDigit) % radix;
         buckets[bucketIndex].push(item);
     })
     buckets.forEach(bucket => void bucket.length && sortedArray.push(...bucket))
@@ -206,7 +206,7 @@ export const radixSort = (arr, radix = 10) => {
     let aux = JSON.parse(JSON.stringify(arr));//用于存储排序后的数组 给原数组赋值
     while (max / significantDigit >= 1) {
         aux = sortForRadix(aux, significantDigit, radix);
-        significantDigit *= 10;
+        significantDigit *= radix;
     }
     aux.forEach((a, i) => void (arr[i] = a))
     return arr;

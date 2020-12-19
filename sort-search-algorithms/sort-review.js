@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-18 21:18:08
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-19 11:15:03
+ * @LastEditTime: 2020-12-19 14:20:59
  */
 import { swap, defaultCompare, Compare } from '../util.js';
 
@@ -110,4 +110,90 @@ export const mergeSort = (arr, compare = defaultCompare) => {
         arr = merge(left, right, compare);
     }
     return arr
+}
+
+//countingSort 基数排序 用于整数数组排序 O(n+k);
+//将原数组中的元素作为 计数数组的下标 将原数组相同项的个数 作为计数数组的值，然后依次取出
+export const countingSort = arr => {
+    if (arr.length < 2) return arr;
+    //找出待排序数组中的最大值，用于计算counts数组的长度
+    const max = Math.max(...arr),
+        counts = new Array(max + 1);
+    // sortedArray = [];
+    arr.forEach(element => {
+        !counts[element] && (counts[element] = 0);
+        counts[element]++;
+    })
+    // counts.forEach((count, i) => {
+    //     while (count--) {
+    //         sortedArray.push(i)
+    //     }
+    // })
+    // return sortedArray;
+    //不用sortedArray 直接更改原数组 需要一个辅助下标
+    let sortedIndex = 0;
+    counts.forEach((count, i) => {
+        while (count--) {
+            //每次赋值之后 都要给sortedIndex 累加
+            arr[sortedIndex++] = i;
+        }
+    })
+    return arr;
+}
+
+//桶排序 O(n+k);
+export const bucketSort = (arr, bucketSize = 5) => {
+    if (arr.length < 2) return arr;
+    const buckets = createBuckets(arr, bucketSize);
+    return sortBuckets(buckets)
+}
+const createBuckets = (arr, bucketSize) => {
+    const min = Math.min(...arr),
+        max = Math.max(...arr),
+        length = Math.floor((max - min) / 2) + 1,
+        buckets = new Array(length);
+    for (let i = 0; i < length; i++) buckets[i] = [];
+    //将数组中的值 放到对应桶中
+    arr.forEach(element => {
+        let index = Math.floor((element - min) / 2);
+        buckets[index].push(element);
+    })
+    return buckets;
+}
+//对每个bucket中的元素 进行排序 然后合并 这里使用的是插入排序
+const sortBuckets = buckets => {
+    const sortedArray = [];
+    buckets.forEach(bucket => {
+        bucket.length && insertionSort(bucket);
+        sortedArray.push(...bucket);
+    })
+    return sortedArray;
+}
+
+//radixSort O(nk);
+//对数组元素的每一位根据进制基数radix 创建桶
+export const radixSort = (arr, radix = 10) => {
+    //从个位开始
+    let significantDigit = 1;
+    const max = Math.max(...arr);//数组最大值决定排序几轮
+    while (max / significantDigit >= 1) {
+        arr = sortForRadix(arr, significantDigit, radix);
+        significantDigit *= radix;
+    }
+    return arr
+}
+
+const sortForRadix = (arr, significantDigit, radix) => {
+    const buckets = new Array(radix);
+    const sortedArray = [];
+    // for (let i = 0; i < radix; i++) buckets[i] = [];
+    arr.forEach(element => {
+        let index = Math.floor(element / significantDigit) % radix;
+        !buckets[index] && (buckets[index] = [])
+        buckets[index].push(element);
+    })
+    buckets.forEach(bucket => {
+        sortedArray.push(...bucket)
+    })
+    return sortedArray
 }

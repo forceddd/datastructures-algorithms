@@ -5,13 +5,17 @@
  * @LastEditors: forceddd
  * @LastEditTime: 2020-11-29 15:32:13
  */
+export const defaultDiff = (a, b) => {
+    return Number(a) - Number(b);
+}
 export const defaultEquals = (a, b) => a === b;
 export const Compare = {
     LESS_THAN: -1,
-    BIGGER_THAN: 1
+    BIGGER_THAN: 1,
+    EQUALS: 0
 }
 export const defaultCompare = (a, b) => {
-    if (a === b) return 0;
+    if (a === b) return Compare.EQUALS;
     return a > b ? Compare.BIGGER_THAN : Compare.LESS_THAN;
 }
 export const defaultToString = item => {

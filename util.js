@@ -5,6 +5,7 @@
  * @LastEditors: forceddd
  * @LastEditTime: 2020-11-29 15:32:13
  */
+export const DO_NOT_EXIST=-1;
 export const defaultDiff = (a, b) => {
     return Number(a) - Number(b);
 }

@@ -1,29 +1,27 @@
-const cache = {};
-const makeChange = (coins,value) => {
-    if (!value) return [];
-    if (cache[value]) return cache[value];
-    let min = [];
-    let newMin, newAmount;
-    for (let coin of coins) {
-        newAmount = value - coin;
-        if (newAmount >= 0) newMin = makeChange(coins,newAmount);
-        console.log('--------------')
-        console.log('coin:',coin,'amount:',newAmount)
-        console.log('newMin:',newMin,'min:',min)
-        console.log('cache:',cache)
-        console.log('---', newAmount >= 0
-            && (newMin.length < min.length - 1 || !min.length)
-            && (newMin.length || !newAmount))
-        if (newAmount >= 0
-            && (newMin.length < min.length - 1 || !min.length)
-            && (newMin.length || !newAmount)) {
-            min = [coin].concat(newMin);
+/*
+ * @Description: 
+ * @Author: forceddd
+ * @Date: 2020-12-21 20:50:57
+ * @LastEditors: forceddd
+ * @LastEditTime: 2020-12-21 21:35:58
+ */
+
+export const minCoinChange = (coins, value) => {
+    const cache = {};
+    const makeChange = value => {
+        if (!value) return [];
+        if (cache[value]) return cache[value];
+        let min = [];
+        let newMin = [], newAmount;
+        for (let coin of coins) {
+            newAmount = value - coin;
+            if (newAmount >= 0) newMin = makeChange(newAmount);
+            if (newAmount >= 0
+                && (newMin.length < min.length - 1 || !min.length)) {
+                min = [coin].concat(newMin);
+            }
         }
-        console.log('min:',min)
-        console.log('----------------')
+        return (cache[value] = min);
     }
-    return (cache[value] = min);
-}
-export const minCoinChange=(coins,value)=>{
-    return makeChange(coins,value);
+    return makeChange(value);
 }

@@ -15,4 +15,4 @@ const goods=[
     {weight:3,value:4},
     {weight:4,value:5}
 ]
-// console.log(knapsack(5,goods))
+console.log(knapsack(5,goods))

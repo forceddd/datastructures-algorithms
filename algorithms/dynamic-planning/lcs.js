@@ -3,7 +3,7 @@
  * @Author: forceddd
  * @Date: 2020-12-22 22:16:52
  * @LastEditors: forceddd
- * @LastEditTime: 2020-12-22 23:09:00
+ * @LastEditTime: 2020-12-22 23:11:41
  */
 /* 
 假如S1的最后一个元素 与 S2的最后一个元素相等，那么S1和S2的LCS就等于 {S1减去最后一个元素} 与 {S2减去最后一个元素} 的 LCS  再加上 S1和S2相等的最后一个元素。
@@ -25,7 +25,6 @@ export const lcs = (string1, string2) => {
             }
         }
     }
-    console.log(res);
     return {
         res: res[x][y],
         length: Object.keys(res[x][y]).length

@@ -6,7 +6,8 @@
  * @LastEditTime: 2020-12-19 16:15:14
  */
 import { defaultCompare } from "../util.js";
-import { binarySearch, interpolationSearch, shuffle } from "./search.js";
+import { binarySearch } from "./search-review.js";
+// import { binarySearch, interpolationSearch, shuffle } from "./search.js";
 import { bubbleSort, bucketSort, countingSort, insertionSort, mergeSort, quickSort, radixSort, selectionSort } from "./sort-review.js";
 // import { insertionSort, mergeSort } from "./sort.js";
 
@@ -16,8 +17,8 @@ const arr3 = [93, 43, 55, 4, 101]
 // bubbleSort(arr);
 // insertionSort(arr);
 // selectionSort(arr);
-quickSort(arr);
-console.log(arr);
+// quickSort(arr);
+console.log(binarySearch(arr,15));
 // mergeSort(arr);
 // console.log(radixSort(arr3))
 // selectionSort(arr)
@@ -31,5 +32,5 @@ console.log(arr);
 // console.log('final:', merge([1, 8, 10], [2, 9], defaultCompare));
 // console.log('index:', interpolationSearch(arr, 5));
 // console.log('b-index:', binarySearch(arr, 5));
-shuffle(arr)
-console.log(arr);
+// shuffle(arr)
+// console.log(arr);

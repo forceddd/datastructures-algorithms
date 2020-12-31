@@ -29,3 +29,16 @@ export const knapsack = (capacity, goods)=>{
         value: Object.values(res[length][capacity]).reduce((v, stuff) => v + stuff.value, 0)
     }
 }
+//最少硬币找零  需要找到每一个x<amount的最优解
+//一直拆分，直到解决最基本的硬币
+export const minCoinChange=(amount,coins)=>{
+    const cache={};//缓存x<n的每个解
+    const makeChange=value=>{
+        //如果要求的value是0 或者不存在，结果是空数组
+        if(!value) return [];
+        //如果有已经缓存的最优解，返回该值得最优解
+        if(cache[value]) return cache[value];
+        //计算value的最优解
+        
+    }
+}

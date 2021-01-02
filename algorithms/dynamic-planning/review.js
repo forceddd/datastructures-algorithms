@@ -4,7 +4,7 @@
  * @Author: forceddd
  * @Date: 2021-01-02 11:24:25
  * @LastEditors: forceddd
- * @LastEditTime: 2021-01-02 13:47:23
+ * @LastEditTime: 2021-01-02 18:52:41
  */
 
 export const knapsack = (capacity, goods) => {
@@ -95,6 +95,29 @@ export const lcsCursive = (string1, string2) => {
         else return cache[length1][length2] = lcs(str1, str2.slice(0, -1)).length > lcs(str1.slice(0, -1), str2).length ? lcs(str1, str2.slice(0, -1)) : lcs(str1.slice(0, -1), str2);
     }
     return lcs(string1, string2)
+}
+
+//矩阵链相乘
+export const matrixChainOrder = parent => {
+    const n = parent.length - 1, res = [], s = [];//s数组用于·存储括号位置
+    //res为二维数组，分别是起始点可结束点
+    for (let i = 0; i <= n; i++) {
+        res[i] = [];
+        res[i][i] = 0;
+        s[i] = [];
+    }
+    //l代表矩阵链长度 2<= l <=n;
+    for (let l = 2; l <= n; l++) {
+        for (let i = 1; i <= n - l + 1; i++) {
+            const j = i + l - 1;
+            res[i][j] = Number.MAX_SAFE_INTEGER;
+            for (let k = i; k < j; k++) {
+                const q = res[i][k] + res[k + 1][j] + parent[i - 1] * parent[k] * parent[j];
+                if (q < res[i][j]) res[i][j] = q;
+            }
+        }
+    }
+    return res[1][n]
 }
 
 

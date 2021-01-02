@@ -3,13 +3,13 @@
  * @Author: forceddd
  * @Date: 2020-12-21 20:50:57
  * @LastEditors: forceddd
- * @LastEditTime: 2021-01-02 13:36:44
+ * @LastEditTime: 2021-01-02 18:52:07
  */
 // import { knapsack } from './knapsack.js'
 // import { minCoinChange } from './minCoinChange.js'
 // import { lcs } from './lcs.js'
 // import { matrixChainOrder ,printOptimalOrder} from './matrixChainOrder.js'
-import { knapsack, minCoinChange, lcs, lcsCursive } from './review.js'
+import { knapsack, minCoinChange, lcs, lcsCursive, matrixChainOrder } from './review.js'
 console.log(minCoinChange([1, 3, 4], 6));
 console.log(minCoinChange([1, 5, 10, 25], 36));
 const goods = [
@@ -21,7 +21,7 @@ const goods = [
 // console.log(knapsack(5,goods))
 console.log(lcs('acbaed', 'acadf'));
 console.log(lcsCursive('acbaed', 'acadf'));
-// const matrix = matrixChainOrder([10, 100, 5, 50, 1])
-// console.log(matrix);
+const matrix = matrixChainOrder([10, 100, 5, 50, 1])
+console.log(matrix);
 // console.log(matrix.m[1][4], matrix.s[1][4])
 // printOptimalOrder(1,4,matrix.s)

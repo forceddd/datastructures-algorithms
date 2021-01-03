@@ -1,12 +1,7 @@
-/*
- * @Description:
- * @Author: forceddd
- * @Date: 2020-12-28 19:59:52
- * @LastEditors: forceddd
- * @LastEditTime: 2020-12-28 20:55:23
- */
+
 import rat from './ratInAMaze.js'
-import sudokuSolver from './sudokuSolver.js'
+import sudo from './sudokuSolver.js'
+import { ratInAMaze, sudokuSolver } from './review.js'
 const maze = [
     [1, 0, 0, 0],
     [1, 1, 1, 1],
@@ -24,6 +19,8 @@ const sudoku = [
     [0, 0, 0, 4, 1, 9, 0, 0, 5],
     [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ]
-// console.log(rat(maze));
+console.log(ratInAMaze(maze));
+console.log(rat(maze));
 // console.log(3 - 4 % 3);
+console.log(sudo(sudoku));
 console.log(sudokuSolver(sudoku));

@@ -50,8 +50,7 @@ const solveSudoku = matrix => {
         }
     }
     //全部值都不合法，说明无解，将该处的值重新设为0（在for循环中 改变了该处的值） 并返回false
-    return matrix[row][col] = 0
-        ;
+    return matrix[row][col] = 0;
 
 }
 

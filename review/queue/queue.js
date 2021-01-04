@@ -1,6 +1,6 @@
 export class Queue {
     constructor() {
-        this.count = 0;//队列最后一个元素的下标
+        this.count = 0;//队列最后一个元素的下标+1
         this.lowestCount = 0;//队列首元素下标
         this.items = {}//队列元素
     }
@@ -39,5 +39,49 @@ export class Queue {
             str += (item + ',')
         })
         return str.slice(0, -1);
+    }
+    clear() {
+        this.items = {};
+        this.count = 0;
+        this.lowestCount = 0;
+
+    }
+}
+export class Deque extends Queue {
+    constructor() {
+        super();
+    }
+    addBack(item) {
+        return this.enqueue(item);
+    }
+    removeFront() {
+        return this.dequeue();
+    }
+    addFront(item) {
+        if (this.isEmpty()) {
+            return this.enqueue(item)
+        } else if (this.lowestCount > 0) {
+            this.lowestCount--;
+            this.items[this.lowestCount] = item;
+        } else {
+            //首元素下标为0 将所有元素往后移
+            for (let i = this.count; i > 0; i--) {
+                this.items[i] = this.items[i - 1];
+            }
+            this.items[0] = item;
+            this.count++;
+        }
+    }
+    removeBack() {
+        const item = this.items[this.count - 1];
+        delete this.items[this.count - 1];
+        this.count--;
+        return item;
+    }
+    peekFront() {
+        return this.peek();
+    }
+    peekBack() {
+        return this.items[this.count - 1];
     }
 }
